@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en-GB" data-size="normal" data-contrast="standard" data-font="standard">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daqorum | Technology That Enables More</title>
+  <meta name="description" content="Daqorum are creators and publishers of accessible technology designed to remove barriers to learning and development.">
+  <meta name="theme-color" content="#0B1220">
+
+  <!-- Favicon: Daqorum iconic mark -->
+  <link rel="icon" href="Assets/Assets-logo/Daqorum%20Iconic%20small.svg" type="image/svg+xml">
+
+  <!-- Fonts: Space Grotesk for headings and Inter for body text. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <style>
+  
+    :root {
+      --accent: #00A3FF;
+      --accent-hover: #38B8FF;
+      --accent-soft: #8FD8FF;
+      --ink: #041424;
+
+      --bg: #0B1220;
+      --surface: #1e293b8c;
+      --panel: #111a2c;
+      --border: #94a3b838;
+      --text: #CBD5E1;
+      --muted: #94A3B8;
+      --heading: #E2E8F0;
+      --heading-edge: rgba(226, 232, 240, 0.72);
+      --focus: #8FD8FF;
+      --glow: 1;
+
+      --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --font-head: "Space Grotesk", var(--font-body);
+    }
+
+    /* High contrast mode (toggled by the visitor, or set by their system) */
+    html[data-contrast="high"] {
+      --bg: #000000;
+      --surface: #000000;
+      --panel: #000000;
+      --border: #FFFFFF;
+      --text: #FFFFFF;
+      --muted: #FFFFFF;
+      --heading: #FFFFFF;
+      --heading-edge: #FFFFFF;
+      --glow: 0;
+    }
+
+    /* Easy-read mode */
+    html[data-font="easy"] {
+      --font-body: "Lexend", "Segoe UI", system-ui, sans-serif;
+    }
+    html[data-font="easy"] body {
+      letter-spacing: 0.02em;
+      word-spacing: 0.1em;
+      line-height: 1.85;
+    }
+    html[data-font="easy"] h1,
+    html[data-font="easy"] h2 { letter-spacing: 0; }
+
+    /* ------------------------------------------------------------
+       Base
+    ------------------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      font-size: 100%;
+      -webkit-text-size-adjust: 100%;
+      scroll-padding-top: 6rem;
+    }
+    html[data-size="large"] { font-size: 125%; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 70rem;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: -5rem;
+      z-index: 50;
+      padding: 0.75rem 1.25rem;
+      background: var(--accent);
+      color: var(--ink);
+      font-weight: 700;
+      border-radius: 0.75rem;
+      text-decoration: none;
+    }
+    .skip:focus { top: 1rem; }
+
+    /* Gradient headline text */
+    .grad {
+      background-image: linear-gradient(90deg, var(--heading-edge), var(--heading) 50%, var(--heading-edge));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    html[data-contrast="high"] .grad {
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      color: #FFFFFF;
+    }
+    @media (forced-colors: active) {
+      .grad {
+        background: none;
+        -webkit-text-fill-color: currentColor;
+        color: CanvasText;
+      }
+    }
+
+    /* ------------------------------------------------------------
+       Buttons
+    ------------------------------------------------------------ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 3rem;
+      padding: 0.7rem 1.5rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.2;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--ink);
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary .arrow { transition: transform 0.2s; }
+    .btn-primary:hover .arrow { transform: translateX(3px); }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.5);
+      border-color: var(--border);
+      color: var(--heading);
+    }
+    .btn-ghost:hover { background: rgba(51, 65, 85, 0.6); }
+    html[data-contrast="high"] .btn-ghost:hover { background: #222222; }
+
+    /* ------------------------------------------------------------
+       Floating header
+    ------------------------------------------------------------ */
+    .site-header {
+      position: fixed;
+      top: 1rem;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      padding-inline: clamp(1rem, 3vw, 2rem);
+    }
+    .site-header__inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      max-width: 72rem;
+      min-height: 3.5rem;
+      margin-inline: auto;
+      padding: 0.4rem 0.5rem 0.4rem 1.25rem;
+      background: rgba(15, 23, 42, 0.82);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+    html[data-contrast="high"] .site-header__inner { background: #000; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--heading);
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .brand img {
+      width: 8.5rem;
+      height: auto;
+      flex: none;
+      display: block;
+    }
+
+    /* Accessibility menu */
+    .acc { display: none; position: relative; }
+    .js .acc { display: block; }
+
+    .acc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.75rem;
+      padding: 0.4rem 1.1rem;
+      background: rgba(51, 65, 85, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--heading);
+      font: inherit;
+      font-size: 0.975rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .acc-btn:hover { background: rgba(71, 85, 105, 0.6); }
+    html[data-contrast="high"] .acc-btn { background: #000; }
+    html[data-contrast="high"] .acc-btn:hover { background: #222; }
+    .acc-btn svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .acc-panel {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 1.1rem);
+      width: min(20rem, calc(100vw - 2.5rem));
+      padding: 1rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .acc-panel[hidden] { display: none; }
+    .acc-title {
+      margin: 0 0 0.75rem;
+      color: var(--heading);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .switch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      min-height: 2.75rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+    }
+    .switch:hover { background: rgba(51, 65, 85, 0.45); }
+    .switch .state::before { content: "Off"; color: var(--muted); font-weight: 600; }
+    .switch[aria-pressed="true"] {
+      background: rgba(0, 163, 255, 0.14);
+      border-color: var(--accent);
+      color: var(--heading);
+    }
+    .switch[aria-pressed="true"] .state::before {
+      content: "\2713\00a0On";
+      color: var(--accent-soft);
+    }
+    html[data-contrast="high"] .switch[aria-pressed="true"] {
+      background: #FFFFFF;
+      color: #000000;
+      border-color: #FFFFFF;
+    }
+    html[data-contrast="high"] .switch[aria-pressed="true"] .state::before { color: #000000; }
+
+    /* ------------------------------------------------------------
+       Hero
+    ------------------------------------------------------------ */
+    .hero {
+      position: relative;
+      padding: clamp(7.25rem, 15vh, 9rem) 0 clamp(2.5rem, 6vw, 4rem);
+      text-align: center;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: var(--glow);
+      background-image:
+        radial-gradient(48rem 30rem at 50% -3rem, rgba(0, 163, 255, 0.32), transparent 70%),
+        linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+      background-size: auto, 4rem 4rem, 4rem 4rem;
+      background-position: 0 0, center top, center top;
+      -webkit-mask-image: linear-gradient(#000 45%, transparent 100%);
+      mask-image: linear-gradient(#000 45%, transparent 100%);
+    }
+    .hero .container { position: relative; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0 0 1.25rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(0, 163, 255, 0.1);
+      border: 1px solid rgba(0, 163, 255, 0.4);
+      border-radius: 999px;
+      color: var(--accent-soft);
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .pill::before {
+      content: "";
+      width: 0.5rem;
+      height: 0.5rem;
+      flex: none;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    html[data-contrast="high"] .pill {
+      background: #000;
+      border-color: #fff;
+      color: #fff;
+    }
+
+    h1 {
+      max-width: 12em;
+      margin: 0 auto;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 4.5rem;
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-wrap: balance;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 47.99em) {
+      h1 { font-size: 2.75rem; }
+      .hero__sub { font-size: 1.1rem; }
+    }
+
+    .hero__sub {
+      max-width: 34rem;
+      margin: 1.25rem auto 0;
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.7rem;
+      margin-top: 1.75rem;
+    }
+
+    /* The ring */
+    .ring-art {
+      position: relative;
+      width: min(20rem, 68vw);
+      aspect-ratio: 1;
+      margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
+    }
+    .ring-art::before {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      opacity: var(--glow);
+      background: radial-gradient(circle, rgba(0, 163, 255, 0.35), transparent 62%);
+    }
+    .ring-art svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .ring-art .main {
+      fill: none;
+      stroke: url(#ring-grad);
+      stroke-width: 12;
+      stroke-linecap: round;
+      stroke-dasharray: 82 18;
+      filter: drop-shadow(0 0 14px rgba(0, 163, 255, 0.55));
+    }
+    html[data-contrast="high"] .ring-art .main {
+      stroke: var(--accent);
+      filter: none;
+    }
+    .ring-art .thin {
+      fill: none;
+      stroke: rgba(148, 163, 184, 0.28);
+      stroke-width: 0.6;
+    }
+    html[data-contrast="high"] .ring-art .thin { stroke: rgba(255, 255, 255, 0.5); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .ring-art .main {
+        animation: open-ring 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both;
+      }
+      @keyframes open-ring {
+        from { stroke-dasharray: 100 0; }
+        to   { stroke-dasharray: 82 18; }
+      }
+    }
+
+    /* ------------------------------------------------------------
+       About
+    ------------------------------------------------------------ */
+    .about { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+    .about__intro {
+      max-width: 42rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h2 {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 2.75rem;
+      line-height: 1.15;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+    @media (max-width: 47.99em) {
+      h2 { font-size: 2rem; }
+    }
+    .about__lead {
+      margin: 1rem 0 0;
+      font-size: 1.15rem;
+    }
+
+    .cards {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    @media (min-width: 48em) {
+      .cards { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      position: relative;
+      padding: clamp(1.5rem, 3vw, 2rem);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      opacity: var(--glow);
+      background: linear-gradient(90deg, transparent, rgba(0, 163, 255, 0.8), transparent);
+    }
+    .card__icon {
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 1rem;
+      background: rgba(0, 163, 255, 0.12);
+      border: 1px solid rgba(0, 163, 255, 0.35);
+      border-radius: 0.9rem;
+      color: var(--accent);
+    }
+    html[data-contrast="high"] .card__icon { background: #000; border-color: #fff; color: var(--accent); }
+    .card__icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    h3 {
+      margin: 0 0 0.6rem;
+      color: var(--heading);
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    h3 { margin-bottom: 0.5rem; }
+    .card p { margin: 0; }
+
+    /* ------------------------------------------------------------
+       SumIt product panel
+    ------------------------------------------------------------ */
+    .product { padding: 0 0 clamp(2.5rem, 6vw, 4.5rem); }
+    .product__box {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      gap: 1.5rem;
+      padding: clamp(1.75rem, 4vw, 2.5rem);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+    }
+    @media (min-width: 48em) {
+      .product__box {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+        gap: 2.5rem;
+      }
+    }
+    .product__box::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      opacity: var(--glow);
+      background: linear-gradient(90deg, transparent, rgba(0, 163, 255, 0.8), transparent);
+    }
+    .product__box::after {
+      content: "";
+      position: absolute;
+      width: 20rem;
+      height: 12rem;
+      top: -6rem;
+      right: -4rem;
+      pointer-events: none;
+      opacity: var(--glow);
+      background: radial-gradient(circle, rgba(0, 163, 255, 0.22), transparent 68%);
+    }
+    .product__content,
+    .product__action { position: relative; z-index: 1; }
+    .product__eyebrow {
+      margin: 0 0 0.5rem;
+      color: var(--accent-soft);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .product h2 { margin: 0; }
+    .product__logo {
+      display: block;
+      width: min(19rem, 100%);
+      height: auto;
+      filter: brightness(0) invert(1);
+    }
+    .product__description {
+      max-width: 48rem;
+      margin: 0.85rem 0 0;
+    }
+    .product__action { justify-self: start; }
+    @media (min-width: 48em) {
+      .product__action { justify-self: end; }
+    }
+
+    /* ------------------------------------------------------------
+       Closing call to action
+    ------------------------------------------------------------ */
+    .closing { padding: 0 0 clamp(3rem, 6vw, 4.5rem); }
+    .closing__box {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 2.5rem);
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+    }
+    .closing__box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: var(--glow);
+      background: radial-gradient(34rem 16rem at 50% 0%, hsla(202, 100%, 50%, 0.278), transparent 70%);
+    }
+    .closing__box > * { position: relative; }
+    .closing p {
+      max-width: 34rem;
+      margin: 0.85rem auto 0;
+    }
+    .closing .cta { margin-top: 1.5rem; }
+
+    /* ------------------------------------------------------------
+       Footer
+    ------------------------------------------------------------ */
+    footer {
+      padding: 1.5rem 0 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 1rem;
+    }
+    footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 2rem;
+    }
+    footer p { margin: 0; color: var(--muted); }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="#top" aria-label="Daqorum, back to top">
+        <img src="Assets/Assets-logo/Daqorum__Daqorum_Logo_Full_Colour White.svg" alt="">
+      </a>
+
+      <div class="acc">
+        <button type="button" id="acc-btn" class="acc-btn" aria-expanded="false" aria-controls="acc-panel">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 7h9M19 7h1M4 17h1M11 17h9"/>
+            <circle cx="16" cy="7" r="2.5"/>
+            <circle cx="8" cy="17" r="2.5"/>
+          </svg>
+          Accessibility
+        </button>
+
+        <div id="acc-panel" class="acc-panel" role="group" aria-label="Adjust this page" hidden>
+          <p class="acc-title">Adjust this page</p>
+          <button type="button" class="switch" data-pref="size" data-on="large" aria-pressed="false">
+            <span>Larger text</span><span class="state" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="switch" data-pref="contrast" data-on="high" aria-pressed="false">
+            <span>High contrast</span><span class="state" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="switch" data-pref="font" data-on="easy" aria-pressed="false">
+            <span>Easy-read font</span><span class="state" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <h1 class="grad">Technology That Enables More</h1>
+        <p class="hero__sub">Accessible technology designed to remove barriers to learning and development.</p>
+
+        <div class="cta">
+          <!-- TODO: replace with your real contact address -->
+          <a class="btn btn-primary" href="mailto:hello@daqorum.com">Get in touch <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-ghost" href="#about">Who are Daqorum?</a>
+        </div>
+
+        <div class="ring-art" aria-hidden="true">
+          <svg viewBox="0 0 200 200" focusable="false">
+            <defs>
+              <linearGradient id="ring-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8FD8FF"/>
+                <stop offset="1" stop-color="#00A3FF"/>
+              </linearGradient>
+            </defs>
+            <circle class="thin" cx="100" cy="100" r="66"/>
+            <circle class="thin" cx="100" cy="100" r="44"/>
+            <circle class="main" cx="100" cy="100" r="86" pathLength="100"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about__intro">
+          <h2 id="about-title" class="grad">Who are Daqorum?</h2>
+          <p class="about__lead">Daqorum are creators and publishers of accessible technology designed to remove barriers to learning and development.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="12" cy="12" r="1.2"/>
+              </svg>
+            </div>
+            <h3>Practical products</h3>
+            <p>Our experience is rooted in developing practical products that solve real problems.</p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M12 3 21 8l-9 5-9-5 9-5z"/>
+                <path d="m3 12.5 9 5 9-5"/>
+                <path d="m3 17 9 5 9-5"/>
+              </svg>
+            </div>
+            <h3>Built on UDL</h3>
+            <p>We believe that technology should make it easier for people to access learning, express their ideas and realise their potential, from classroom to the workplace, that's why all our solutions are designed with UDL in mind.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="product" aria-labelledby="sumit-title">
+      <div class="container">
+        <div class="product__box">
+          <div class="product__content">
+            <p class="product__eyebrow">Our solutions</p>
+            <h2 id="sumit-title">
+              <img class="product__logo" src="Assets/Assets-logo/Sumit%20Logo001.svg" alt="SumIt by Daqorum">
+            </h2>
+            <p class="product__description">SumIt is the equation studio for students, teachers, researchers and STEM teams. Type LaTeX, dictate by voice, handwrite on a touchscreen, calculate, plot functions and render chemistry — then copy or export wherever your work needs to go.</p>
+          </div>
+          <div class="product__action">
+            <a class="btn btn-primary" href="https://sumit.daqorum.com">See SumIt in action <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="container">
+        <div class="closing__box">
+          <h2 id="closing-title" class="grad">Want to hear more?</h2>
+          <p>Our new website is on its way. In the meantime, feel free to get in touch and we'll be happy to talk.</p>
+          <div class="cta">
+            <a class="btn btn-primary" href="mailto:hello@daqorum.com">Get in touch <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <a class="brand" href="#top" aria-label="Daqorum, back to top">
+        <img src="Assets/Assets-logo/Daqorum__Daqorum_Logo_Full_Colour White.svg" alt="">
+      </a>
+      <p>&copy; 2026 Daqorum. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var KEY = 'daqorum-page-settings';
+      var defaults = { size: 'normal', contrast: 'standard', font: 'standard' };
+      var prefs = {};
+      var saved = null;
+
+      try { saved = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+
+      for (var k in defaults) { prefs[k] = (saved && saved[k]) || defaults[k]; }
+
+      // Respect a system-level request for more contrast if nothing has been saved yet
+      if (!saved && window.matchMedia && window.matchMedia('(prefers-contrast: more)').matches) {
+        prefs.contrast = 'high';
+      }
+
+      var switches = document.querySelectorAll('.switch');
+
+      function apply() {
+        Array.prototype.forEach.call(switches, function (btn) {
+          var key = btn.getAttribute('data-pref');
+          root.setAttribute('data-' + key, prefs[key]);
+          btn.setAttribute('aria-pressed', String(prefs[key] === btn.getAttribute('data-on')));
+        });
+      }
+
+      Array.prototype.forEach.call(switches, function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-pref');
+          prefs[key] = (prefs[key] === btn.getAttribute('data-on')) ? defaults[key] : btn.getAttribute('data-on');
+          apply();
+          try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (e) {}
+        });
+      });
+
+      apply();
+
+      // Accessibility menu open/close
+      var accBtn = document.getElementById('acc-btn');
+      var panel = document.getElementById('acc-panel');
+
+      function setOpen(open) {
+        accBtn.setAttribute('aria-expanded', String(open));
+        panel.hidden = !open;
+      }
+
+      accBtn.addEventListener('click', function () { setOpen(panel.hidden); });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !panel.hidden) {
+          setOpen(false);
+          accBtn.focus();
+        }
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!panel.hidden && !panel.contains(e.target) && !accBtn.contains(e.target)) {
+          setOpen(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
